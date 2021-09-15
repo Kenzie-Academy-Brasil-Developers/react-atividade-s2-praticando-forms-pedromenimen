@@ -39,14 +39,14 @@ function App() {
       .string()
       .required("Senha obrigatória")
       .matches(
-        "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{2,}$",
+        "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*.).{4,}$",
         "Senha inválida"
       ),
 
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null], "As senhas são diferentes")
-      .required("Required"),
+      .required("Senha obrigatória"),
   });
   const {
     register,

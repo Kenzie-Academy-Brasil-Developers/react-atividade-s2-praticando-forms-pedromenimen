@@ -1,0 +1,64 @@
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.formulario > input {
+  box-sizing: border-box;
+  border-radius: 6px;
+  width: 400px;
+  height: 50px;
+  font-size: 25px;
+  align-items: center;
+  border: none;
+  margin: 5px 0;
+}
+
+.formulario > button {
+  box-sizing: border-box;
+  width: 400px;
+  height: 50px;
+  font-size: 25px;
+  border-radius: 5px;
+  background-color: crimson;
+  border: none;
+  margin: 5px 0;
+}
+
+.password {
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+}
+
+.password input {
+  width: 190px;
+  flex: 1;
+  padding: 5px 0;
+  box-sizing: border-box;
+  border-radius: 6px;
+  font-size: 20px;
+  border: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#pass {
+  margin-right: 15px;
+}
+
+.erro {
+  font-size: 15px;
+}

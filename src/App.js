@@ -2,11 +2,8 @@ import "./App.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useState } from "react";
 
 function App() {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const formSchema = yup.object().shape({
     name: yup
       .string()
@@ -20,13 +17,6 @@ function App() {
         "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
         "Email inválido"
       ),
-    password: yup
-      .string()
-      .required("Senha obrigatória")
-      .matches(
-        "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{2,}$",
-        "Senha inválida"
-      ),
     age: yup
       .string()
       .required("Idade obrigatória")
@@ -38,10 +28,6 @@ function App() {
         "(\\(?[0]?[1-9][0-9]\\)?)(\\.|\\-|\\s)?([9]{1})?[6-9][0-9]{3}(\\.|\\-|\\s)?[0-9]{4}",
         "Número inválido"
       ),
-    confirmPassword: yup
-      .string()
-      .required("Senha obrigatória")
-      .matches("", "As senhas são diferentes"),
     CPF: yup
       .string()
       .required("CPF obrigatório")
@@ -49,6 +35,18 @@ function App() {
         "[0-9]{3}[\\.]?[0-9]{3}[\\.]?[0-9]{3}[\\-]?[0-9]{2}",
         "CPF inválido"
       ),
+    password: yup
+      .string()
+      .required("Senha obrigatória")
+      .matches(
+        "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{2,}$",
+        "Senha inválida"
+      ),
+
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "As senhas são diferentes")
+      .required("Required"),
   });
   const {
     register,
@@ -58,13 +56,6 @@ function App() {
     resolver: yupResolver(formSchema),
   });
   const handleSubmitButton = (data) => console.log(data);
-
-  const handleConfirmPassword = (evt) => {
-    setConfirmPassword(evt.target.value);
-  };
-
-  console.log(password);
-  console.log(confirmPassword);
 
   return (
     <div className="App">
@@ -90,19 +81,16 @@ function App() {
           <div className="password">
             <div>
               <input
-                {...register("password")}
                 type="password"
-                value={password}
-                onChange={(evt) => setPassword(evt.target.value)}
                 id="pass"
                 placeholder="Senha"
+                {...register("password")}
               />
               <div className="erro">{errors.password?.message}</div>
             </div>
             <div>
               <input
                 type="password"
-                onChange={(evt) => handleConfirmPassword(evt)}
                 placeholder="Confirme sua senha"
                 {...register("confirmPassword")}
               />
